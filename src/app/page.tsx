@@ -4,7 +4,7 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { WEBSITE_CATEGORIES } from "@/lib/website-categories";
 
 export const metadata: Metadata = {
-  title: "Top Website Directory",
+  title: "100 Best Websites by Category",
   description: SITE_DESCRIPTION,
   alternates: {
     canonical: "/",
@@ -12,6 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const totalSites = WEBSITE_CATEGORIES.reduce(
+    (count, category) => count + category.sites.length,
+    0,
+  );
+
   const itemListElements = WEBSITE_CATEGORIES.flatMap((category) =>
     category.sites.map((site) => ({
       "@type": "ListItem",
@@ -31,8 +36,14 @@ export default function Home() {
         inLanguage: "en",
       },
       {
+        "@type": "CollectionPage",
+        name: `${SITE_NAME} Curated Website Directory`,
+        description: `${SITE_NAME} lists ${totalSites} websites organized by category.`,
+        url: SITE_URL,
+      },
+      {
         "@type": "ItemList",
-        name: `${SITE_NAME} Website Categories`,
+        name: `${SITE_NAME} Top ${totalSites} Websites`,
         itemListElement: itemListElements.map((item, index) => ({
           ...item,
           position: index + 1,
