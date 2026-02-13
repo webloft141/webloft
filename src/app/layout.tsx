@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -49,6 +49,10 @@ export const metadata: Metadata = {
     },
   },
   category: "technology",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#52796f",
 };
 
 export default function RootLayout({

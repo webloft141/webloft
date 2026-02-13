@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { User } from "@supabase/supabase-js";
+import Image from "next/image";
 import type { WebsiteCategory } from "@/lib/website-categories";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -213,11 +214,12 @@ function WebsiteLogo({
       aria-hidden="true"
     >
       {showImage ? (
-        <img
+        <Image
           src={logoUrl}
           alt={`${name} logo`}
-          loading="lazy"
-          referrerPolicy="no-referrer"
+          width={64}
+          height={64}
+          unoptimized
           className={`object-contain ${imageClassName}`}
           onError={() => setLogoError(true)}
           key={logoUrl}
