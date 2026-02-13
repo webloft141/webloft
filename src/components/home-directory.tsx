@@ -1185,7 +1185,7 @@ export default function HomeDirectory({ categories, activeRoute = "home" }: Home
         )}
 
         {showTrending ? (
-        <section id="trending" className="mb-10 scroll-mt-24">
+        <section id="trending" className="mb-10 scroll-mt-24 webloft-fade-up-slow">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Trending Websites</h2>
             <p className="text-sm text-slate-500">
@@ -1240,7 +1240,7 @@ export default function HomeDirectory({ categories, activeRoute = "home" }: Home
         ) : null}
 
         {showFeatured ? (
-        <section id="featured" className="mb-10 scroll-mt-24">
+        <section id="featured" className="mb-10 scroll-mt-24 webloft-fade-up-slow">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Featured Websites</h2>
             <p className="text-sm text-slate-500">Handpicked quality websites</p>
@@ -1265,7 +1265,7 @@ export default function HomeDirectory({ categories, activeRoute = "home" }: Home
         ) : null}
 
         {showCategories ? (
-        <section id="categories" className="mb-10 scroll-mt-24">
+        <section id="categories" className="mb-10 scroll-mt-24 webloft-fade-up-slow">
           {Object.entries(normalGrouped).map(([categoryName, sites]) => (
             <section key={categoryName} className="mb-8">
               <h3 className="mb-4 text-xl font-bold text-[#52796f]">{categoryName}</h3>
@@ -1290,7 +1290,7 @@ export default function HomeDirectory({ categories, activeRoute = "home" }: Home
         ) : null}
 
         {showFavourites ? (
-        <section id="favourites" className="mb-6 scroll-mt-24">
+        <section id="favourites" className="mb-6 scroll-mt-24 webloft-fade-up-slow">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-2xl font-bold">Favourites</h2>
             <p className="text-sm text-slate-500">Your saved websites</p>

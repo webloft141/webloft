@@ -60,11 +60,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const themeInitScript = `
+(() => {
+  try {
+    const t = window.localStorage.getItem('webloft-theme');
+    if (t === 'dark') document.documentElement.classList.add('dark');
+  } catch {}
+})();
+`.trim();
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {children}
       </body>
     </html>
