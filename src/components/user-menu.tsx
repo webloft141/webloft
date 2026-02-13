@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const MENU_ITEMS = [
-  { label: "Profile", href: "#" },
-  { label: "Settings", href: "#" },
+  { label: "Profile Setting", href: "#" },
+  { label: "Account Setting", href: "#" },
+  { label: "Premium Setting", href: "#" },
+  { label: "Network Setting", href: "#" },
   { label: "Logout", href: "#" },
 ];
 
@@ -48,7 +50,7 @@ export default function UserMenu() {
         className="cursor-pointer rounded-full border border-white/50 bg-white/30 p-2 text-white transition hover:bg-white/45"
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        aria-label="Open user menu"
+        aria-label="User menu"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <svg

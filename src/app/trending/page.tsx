@@ -1,24 +1,27 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import HomeDirectory from "@/components/home-directory";
-import { SITE_DESCRIPTION } from "@/lib/seo";
+import { SITE_NAME } from "@/lib/seo";
 import { buildCollectionStructuredData } from "@/lib/structured-data";
 import { getWebsiteCategoriesFromDb } from "@/lib/website-categories-db";
 
+const description = `${SITE_NAME} trending section with top ranked websites across categories.`;
+
 export const metadata: Metadata = {
-  title: "100 Best Websites by Category",
-  description: SITE_DESCRIPTION,
+  title: "Trending Websites",
+  description,
   alternates: {
-    canonical: "/",
+    canonical: "/trending",
   },
 };
 
-export default async function Home() {
+export default async function TrendingPage() {
   const categories = await getWebsiteCategoriesFromDb();
   const structuredData = buildCollectionStructuredData({
-    path: "/",
-    pageName: "Curated Website Directory",
-    pageDescription: SITE_DESCRIPTION,
+    path: "/trending",
+    pageName: "Trending Websites",
+    pageDescription: description,
     categories,
+    limit: 30,
   });
 
   return (
@@ -27,7 +30,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <HomeDirectory categories={categories} activeRoute="home" />
+      <HomeDirectory categories={categories} activeRoute="trending" />
     </>
   );
 }

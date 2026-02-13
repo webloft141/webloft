@@ -20,6 +20,38 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Supabase Setup
+
+1. Create a Supabase project.
+2. Copy `.env.example` to `.env.local`.
+3. Add your project URL and anon key:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
+4. Use helpers from:
+- `src/lib/supabase/client.ts` for client components
+- `src/lib/supabase/server.ts` for server components/routes
+
+5. Apply database schema migration:
+
+- Open Supabase SQL Editor
+- Run: `supabase/migrations/20260212_initial_webloft_schema.sql`
+
+This migration creates:
+- `categories`, `subcategories`, `websites`
+- `website_trending`, `user_favourites`, `user_events`, `profiles`
+- `website_directory` view
+- RLS policies for public read + user-owned writes
+
+6. Regenerate Supabase types later (recommended once DB is live):
+
+```bash
+supabase gen types typescript --project-id <your-project-id> --schema public > src/lib/supabase/types.ts
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
