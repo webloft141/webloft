@@ -1,0 +1,47 @@
+{
+  "name": "notly",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "build:web": "next build --webpack && next export",
+    "start": "next start",
+    "cap:sync": "npx cap sync",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios",
+    "app:android": "npm run build:web && npx cap copy android",
+    "app:ios": "npm run build:web && npx cap copy ios",
+    "lint": "eslint",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@capacitor/app": "^6.0.0",
+    "@capacitor-community/admob": "^6.1.0",
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/browser": "^6.0.0",
+    "@capacitor/core": "^6.1.0",
+    "@capacitor/ios": "^6.1.0",
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.95.3",
+    "@upstash/redis": "^1.36.3",
+    "next": "^16.2.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.2.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^17.3.1",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.0.18"
+  }
+}

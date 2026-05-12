@@ -1,0 +1,82 @@
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  experimental: {
+    // Windows env me build worker spawn (`jest-worker`) kabhi-kabhi EPERM de raha tha.
+    // Same-process webpack build se avoid ho jata hai.
+    webpackBuildWorker: false,
+    // child_process spawn (processChild.js) EPERM avoid: worker_threads use karo.
+    workerThreads: true,
+  },
+  typescript: {
+    // We run `npx tsc --noEmit` separately. Disabling build-time typecheck avoids Windows spawn EPERM issues.
+    ignoreBuildErrors: true,
+  },
+  images: {
+    // We use third-party logo URLs; keep this flexible.
+    remotePatterns: [
+      { protocol: "https", hostname: "img.logo.dev" },
+      { protocol: "https", hostname: "logo.dev" },
+    ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "webloft.in" }],
+        destination: "https://www.webloft.in/:path*",
+        permanent: true,
+      },
+      {
+        source: "/home.html",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
+  async headers() {
+    const isDev = process.env.NODE_ENV !== "production";
+    const scriptSrc = [
+      "'self'",
+      "'unsafe-inline'",
+      ...(isDev ? ["'unsafe-eval'"] : []),
+      ...(isDev ? ["https://vercel.live"] : []),
+      "https://pagead2.googlesyndication.com",
+      "https://*.doubleclick.net",
+      "https://*.adtrafficquality.google",
+      "https://checkout.razorpay.com",
+      "https://www.googletagmanager.com",
+      "https://www.google.com",
+      "https://www.gstatic.com",
+    ].join(" ");
+
+    const csp = [
+      "default-src 'self'",
+      `script-src ${scriptSrc}`,
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "img-src 'self' data: blob: https: http:",
+      "font-src 'self' https://fonts.gstatic.com https://*.gstatic.com",
+      "connect-src 'self' https://*.supabase.co https://api.razorpay.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://*.google.com https://*.gstatic.com https://*.googleusercontent.com",
+      "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://www.google.com https://*.doubleclick.net https://*.googlesyndication.com https://*.adtrafficquality.google",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'none'",
+      "upgrade-insecure-requests",
+    ].join("; ");
+
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Content-Security-Policy", value: csp },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;
